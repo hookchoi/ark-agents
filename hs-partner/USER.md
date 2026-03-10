@@ -3,7 +3,7 @@
 ## 기본 정보
 - 이름: HS (이혜성)
 - 호칭: HS
-- 역할: ARK Point 대표 / CEO
+- 역할: ARK Point Co-founder / COO
 - 회사: ARK Point (arkpoint.kr)
 
 ## 사업 영역

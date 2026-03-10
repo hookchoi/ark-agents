@@ -1,8 +1,8 @@
 # USER.md — HS 및 ARK Point 정보
 
 ## 보고 대상
-- 직속 상관: HS비서 (비서실장)
-- 최종 수신자: HS (ARK Point CEO)
+- 직속: HS_Partner (비서실장)
+- 최종 수신자: HS (ARK Point Co-founder / COO)
 
 ## ARK Point 사업 영역 (리서치 우선순위 기준)
 - Web3 마케팅 / 컨설팅
