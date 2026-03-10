@@ -5,7 +5,9 @@ Claude Code 대신 Anthropic API 직접 호출
 
 import os
 import sys
+import subprocess
 from pathlib import Path
+from datetime import date
 from dotenv import load_dotenv
 import anthropic
 from telegram import Update
@@ -75,7 +77,8 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     except Exception as e:
         print(f"[{agent_name}] 오류: {e}")
-        await update.message.reply_text(f"오류 발생: {str(e)[:200]}")
+        err_msg = str(e)
+        await update.message.reply_text(f"오류 발생: {err_msg[:200]}")
 
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -85,10 +88,41 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(f"안녕하세요, HS. {name}입니다.")
 
 
+async def edit_activity(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    """/활동수정 <내용> — 오늘 활동 로그 덮어쓰기 + GitHub push"""
+    if str(update.effective_chat.id) != HS_CHAT_ID:
+        return
+
+    # 커맨드 이후 텍스트 추출
+    full_text = update.message.text or ""
+    content = full_text.split(" ", 1)[1].strip() if " " in full_text else ""
+    if not content:
+        await update.message.reply_text("사용법: /활동수정 [수정할 내용 전체]")
+        return
+
+    today = date.today()
+    ark_tools = Path.home() / "workspace/ai/ark-ai-tools"
+    activity_file = ark_tools / "activity" / f"{today}-hs.md"
+    activity_file.parent.mkdir(exist_ok=True)
+    activity_file.write_text(content)
+
+    try:
+        subprocess.run(["git", "add", str(activity_file)], cwd=ark_tools, check=True)
+        subprocess.run(
+            ["git", "commit", "-m", f"activity: {today} HS (수정)"],
+            cwd=ark_tools, check=True
+        )
+        subprocess.run(["git", "push"], cwd=ark_tools, check=True)
+        await update.message.reply_text(f"✅ 활동 로그 수정 + GitHub push 완료 ({today})")
+    except subprocess.CalledProcessError as e:
+        await update.message.reply_text(f"⚠️ 저장은 됐으나 push 실패: {e}")
+
+
 def run_bot(token: str, name: str):
     app = Application.builder().token(token).build()
     app.bot_data["name"] = name
     app.add_handler(CommandHandler("start", start))
+    app.add_handler(CommandHandler("활동수정", edit_activity))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
     print(f"[{name}] 봇 시작...")
     app.run_polling(drop_pending_updates=True)
