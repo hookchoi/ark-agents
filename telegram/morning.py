@@ -1,6 +1,6 @@
 """
 아침 브리핑 스크립트 — 매일 09:00
-HS_Partner가 HS에게 Telegram으로 오늘의 브리핑 발송
+HS_Orchestrator가 HS에게 Telegram으로 오늘의 브리핑 발송
 """
 import os
 import asyncio
@@ -15,18 +15,18 @@ client = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
 
 
 async def send_briefing():
-    bot = telegram.Bot(token=os.environ["HS_BISEO_TOKEN"])
+    bot = telegram.Bot(token=os.environ["HS_ORCHESTRATOR_TOKEN"])
     chat_id = os.environ["HS_CHAT_ID"]
     today = date.today()
 
-    partner_workspace = Path.home() / "workspace/ai/hs-partner"
+    partner_workspace = Path.home() / "Documents/ark_point/repos/ark-agents/hs-orchestrator"
     memory = (partner_workspace / "MEMORY.md").read_text() if (partner_workspace / "MEMORY.md").exists() else ""
     heartbeat = (partner_workspace / "HEARTBEAT.md").read_text() if (partner_workspace / "HEARTBEAT.md").exists() else ""
 
     response = client.messages.create(
         model="claude-sonnet-4-6",
         max_tokens=800,
-        system="당신은 HS_Partner, ARK Point 비서실장입니다. 매일 아침 HS에게 간결한 브리핑을 제공합니다. 한국어로 답변하세요.",
+        system="당신은 HS_Orchestrator, ARK Point 비서실장입니다. 매일 아침 HS에게 간결한 브리핑을 제공합니다. 한국어로 답변하세요.",
         messages=[{
             "role": "user",
             "content": f"""오늘({today}) 아침 브리핑을 작성해줘.

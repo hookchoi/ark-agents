@@ -17,9 +17,10 @@ import anthropic
 load_dotenv(Path(__file__).parent / ".env")
 client = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
 
+BASE_DIR = Path(__file__).parent.parent
 WORKSPACES = {
-    "hs-partner": Path.home() / "workspace/ai/hs-partner",
-    "hs-intelli": Path.home() / "workspace/ai/hs-intelli",
+    "hs-orchestrator": BASE_DIR / "hs-orchestrator",
+    "hs-brain":   BASE_DIR / "hs-brain",
 }
 
 
@@ -99,16 +100,16 @@ def git_commit(workspace: Path, agent_name: str):
 
 def draft_activity_log(today: date, msg_count: int, commit_count: int) -> str:
     """Claude가 오늘 활동 로그 초안 작성"""
-    partner_ws = WORKSPACES["hs-partner"]
-    memory_content: str = (partner_ws / "MEMORY.md").read_text() if (partner_ws / "MEMORY.md").exists() else ""
+    orchestrator_ws = WORKSPACES["hs-orchestrator"]
+    memory_content: str = (orchestrator_ws / "MEMORY.md").read_text() if (orchestrator_ws / "MEMORY.md").exists() else ""
     memory_excerpt: str = "\n".join(itertools.islice(memory_content.splitlines(), 40))
-    diary_path = partner_ws / "memory" / f"{today}.md"
+    diary_path = orchestrator_ws / "memory" / f"{today}.md"
     diary_content = diary_path.read_text() if diary_path.exists() else ""
 
     response = client.messages.create(
         model="claude-sonnet-4-6",
         max_tokens=800,
-        system="당신은 HS_Partner입니다. HS의 오늘 활동 로그 초안을 작성합니다. 한국어로, 간결하게.",
+        system="당신은 HS_Orchestrator입니다. HS의 오늘 활동 로그 초안을 작성합니다. 한국어로, 간결하게.",
         messages=[{
             "role": "user",
             "content": f"""아래 정보를 바탕으로 오늘({today}) 활동 로그 마크다운 초안을 작성해줘.
@@ -120,7 +121,7 @@ MEMORY.md 맥락:
 {diary_content if diary_content else "(없음)"}
 
 자동화 지표:
-- HS_Partner 봇 메시지 처리: {msg_count}건
+- HS_Orchestrator 봇 메시지 처리: {msg_count}건
 - 에이전트 Git 커밋: {commit_count}건
 
 형식:
@@ -157,13 +158,13 @@ def send_telegram(token: str, chat_id: str, text: str):
 def log_activity():
     """HS 당일 활동 초안 생성 + Telegram 전송 + ark-ai-tools push"""
     today = date.today()
-    ark_tools = Path.home() / "workspace/ai/ark-ai-tools"
+    ark_tools = Path.home() / "Documents/ark_point/repos/ark-agents/ark-ai-tools"
 
     # 봇 메시지 수
-    partner_log = Path("/tmp/hs-partner.log")
+    orchestrator_log = Path("/tmp/hs-orchestrator.log")
     msg_count = sum(
-        1 for line in partner_log.read_text().splitlines() if "메시지 수신" in line
-    ) if partner_log.exists() else 0
+        1 for line in orchestrator_log.read_text().splitlines() if "메시지 수신" in line
+    ) if orchestrator_log.exists() else 0
 
     # 오늘 에이전트 커밋 수
     commit_count = 0
@@ -185,7 +186,7 @@ def log_activity():
 
     # Telegram 전송
     try:
-        token = os.environ["HS_BISEO_TOKEN"]
+        token = os.environ["HS_ORCHESTRATOR_TOKEN"]
         chat_id = os.environ["HS_CHAT_ID"]
         send_telegram(token, chat_id,
             f"📋 오늘 활동 로그 초안입니다. 확인 후 수정이 필요하면 /활동수정 으로 보내주세요.\n\n{draft[:1500]}"

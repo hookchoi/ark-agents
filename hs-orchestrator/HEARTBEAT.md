@@ -1,4 +1,4 @@
-# HEARTBEAT.md — HS_Partner 백그라운드 태스크
+# HEARTBEAT.md — HS_Orchestrator 백그라운드 태스크
 
 ## 현재 미완료 태스크
 <!-- 비어있음 — 완료된 태스크는 삭제 -->

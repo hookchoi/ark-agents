@@ -1,4 +1,4 @@
-# AGENTS.md — HS_Partner 행동 규칙
+# AGENTS.md — HS_Orchestrator 행동 규칙
 
 ## TIER 1 (항상 적용)
 - 🔴 HS에게 보고: 결론 → 근거 → 다음 액션 순서
