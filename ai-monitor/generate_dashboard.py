@@ -3,10 +3,16 @@ AI Native 워크플로우 대시보드 생성기
 history/*.json + team-data/ → dashboard.html
 """
 from __future__ import annotations
+import html as html_module
 import json
 import os
 from datetime import date, datetime
 from pathlib import Path
+
+
+def _esc(value) -> str:
+    """HTML 이스케이프 — XSS 방어"""
+    return html_module.escape(str(value))
 
 
 def load_history() -> list[dict]:
@@ -76,21 +82,21 @@ def generate_html(history: list[dict], team_data: dict) -> str:
 
         tools_bars = ""
         if tools_list:
-            max_val = max(v for _, v in tools_list) if tools_list else 1
+            max_val = max((v for _, v in tools_list), default=1) or 1
             for tool, count in tools_list:
                 pct = count / max_val * 100
                 short_name = tool.replace("mcp__plugin_ouroboros_ouroboros__", "ouroboros:")
                 tools_bars += f"""
                 <div class="tool-row">
-                    <span class="tool-name">{short_name}</span>
+                    <span class="tool-name">{_esc(short_name)}</span>
                     <div class="tool-bar-bg"><div class="tool-bar" style="width:{pct}%"></div></div>
-                    <span class="tool-count">{count}</span>
+                    <span class="tool-count">{int(count)}</span>
                 </div>"""
 
         skills_html = ""
         if skills:
             skills_html = '<div class="skills">' + " ".join(
-                f'<span class="skill-tag">/{s}</span>' for s in skills.keys()
+                f'<span class="skill-tag">/{_esc(s)}</span>' for s in skills.keys()
             ) + '</div>'
 
         level_class = "high" if summary.get("total_tool_calls", 0) > 50 else "mid" if summary.get("total_tool_calls", 0) > 10 else "low"
@@ -98,7 +104,7 @@ def generate_html(history: list[dict], team_data: dict) -> str:
         member_cards.append(f"""
         <div class="member-card {level_class}">
             <div class="member-header">
-                <h3>{username.upper()}</h3>
+                <h3>{_esc(username.upper())}</h3>
                 <span class="member-badge">{summary.get('total_sessions', 0)} sessions</span>
             </div>
             <div class="member-stats">

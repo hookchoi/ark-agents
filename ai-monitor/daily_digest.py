@@ -11,7 +11,7 @@ from __future__ import annotations
 import os
 import json
 import argparse
-from datetime import date, datetime, timezone
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from dotenv import load_dotenv
 
@@ -30,7 +30,7 @@ def load_team_sessions(hours: int) -> dict:
         return {}
 
     today = date.today().isoformat()
-    yesterday = (date.today().replace(day=date.today().day - 1)).isoformat() if date.today().day > 1 else today
+    yesterday = (date.today() - timedelta(days=1)).isoformat()
 
     sessions = {}
     for user_dir in team_data_dir.iterdir():

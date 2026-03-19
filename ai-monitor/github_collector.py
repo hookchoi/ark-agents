@@ -11,10 +11,14 @@ from config import TEAM_MEMBERS, GITHUB_ORG, AI_COMMIT_MARKERS
 
 
 def run_gh(args: list[str], timeout: int = 30) -> str:
-    result = subprocess.run(
-        ["gh"] + args,
-        capture_output=True, text=True, timeout=timeout
-    )
+    try:
+        result = subprocess.run(
+            ["gh"] + args,
+            capture_output=True, text=True, timeout=timeout
+        )
+    except subprocess.TimeoutExpired:
+        print(f"[github] timeout: gh {' '.join(args[:3])}")
+        return ""
     if result.returncode != 0:
         return ""
     return result.stdout.strip()
