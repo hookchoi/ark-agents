@@ -1,0 +1,185 @@
+{
+  "collector_version": "1.0",
+  "collected_at": "2026-03-19T06:18:05.924799+00:00",
+  "username": "freddie",
+  "period_hours": 24,
+  "summary": {
+    "total_sessions": 6,
+    "total_user_messages": 510,
+    "total_tool_calls": 410,
+    "total_duration_min": 804,
+    "avg_session_min": 134,
+    "top_tools": {
+      "Bash": 124,
+      "Read": 77,
+      "Edit": 50,
+      "Write": 48,
+      "TaskUpdate": 31,
+      "Agent": 27,
+      "TaskOutput": 11,
+      "TaskCreate": 11,
+      "Glob": 10,
+      "ToolSearch": 9
+    },
+    "skills_used": {
+      "youtube-summarize": 1,
+      "conductor:new-track": 1
+    }
+  },
+  "sessions": [
+    {
+      "session_id": "79dfc872-214d-4897-8eca-24c343030262",
+      "started_at": "2026-03-18T09:59:44.266000+09:00",
+      "ended_at": "2026-03-18T18:51:42.355000+09:00",
+      "duration_min": 532,
+      "cwd": "~/Documents/freddie",
+      "user_messages": 129,
+      "assistant_messages": 183,
+      "total_tool_calls": 101,
+      "tools": {
+        "Bash": 45,
+        "Write": 21,
+        "Read": 14,
+        "Edit": 9,
+        "Agent": 5,
+        "ToolSearch": 2,
+        "Grep": 2,
+        "mcp__notionApi__API-post-search": 1,
+        "mcp__notionApi__API-update-a-data-source": 1,
+        "Skill": 1
+      },
+      "skills_used": {
+        "youtube-summarize": 1
+      },
+      "agents_used": {
+        "claude-code-guide": 1,
+        "general-purpose": 4
+      },
+      "project": "-Users-freddie-Documents-freddie"
+    },
+    {
+      "session_id": "14a254aa-fae8-4867-a3be-616841339b19",
+      "started_at": "2026-03-19T14:33:54.599000+09:00",
+      "ended_at": "2026-03-19T15:17:37.833000+09:00",
+      "duration_min": 44,
+      "cwd": "~/Documents/arkpoint/ark-agents",
+      "user_messages": 59,
+      "assistant_messages": 75,
+      "total_tool_calls": 45,
+      "tools": {
+        "Bash": 30,
+        "Read": 7,
+        "Write": 5,
+        "Edit": 2,
+        "Glob": 1
+      },
+      "skills_used": {},
+      "agents_used": {},
+      "project": "-Users-freddie-Documents-arkpoint-ark-agents"
+    },
+    {
+      "session_id": "fbfa30ee-1689-4ca0-ab37-be1136fdd0dc",
+      "started_at": "2026-03-19T13:20:46.409000+09:00",
+      "ended_at": "2026-03-19T14:31:04.556000+09:00",
+      "duration_min": 70,
+      "cwd": "~/Documents/arkpoint/ark-agents",
+      "user_messages": 84,
+      "assistant_messages": 123,
+      "total_tool_calls": 68,
+      "tools": {
+        "Read": 18,
+        "Edit": 11,
+        "Bash": 10,
+        "Glob": 7,
+        "TaskOutput": 6,
+        "Agent": 5,
+        "Write": 5,
+        "ToolSearch": 3,
+        "Skill": 1,
+        "EnterPlanMode": 1,
+        "ExitPlanMode": 1
+      },
+      "skills_used": {
+        "conductor:new-track": 1
+      },
+      "agents_used": {
+        "developer-essentials:code-review-excellence": 1,
+        "backend-api-security:backend-security-coder": 2,
+        "general-purpose": 1,
+        "backend-development:backend-architect": 1
+      },
+      "project": "-Users-freddie-Documents-arkpoint-ark-agents"
+    },
+    {
+      "session_id": "cf3f46bd-3e3f-464f-9abf-5b57aa467317",
+      "started_at": "2026-03-18T17:51:18.192000+09:00",
+      "ended_at": "2026-03-18T17:54:15.852000+09:00",
+      "duration_min": 3,
+      "cwd": "~/Documents/arkpoint/money-printer",
+      "user_messages": 9,
+      "assistant_messages": 0,
+      "total_tool_calls": 0,
+      "tools": {},
+      "skills_used": {},
+      "agents_used": {},
+      "project": "-Users-freddie-Documents-arkpoint-money-printer"
+    },
+    {
+      "session_id": "b9029f60-bae9-4c3a-9ab7-6276b48679e9",
+      "started_at": "2026-03-19T12:35:38.602000+09:00",
+      "ended_at": "2026-03-19T13:29:27.529000+09:00",
+      "duration_min": 54,
+      "cwd": "~",
+      "user_messages": 68,
+      "assistant_messages": 90,
+      "total_tool_calls": 58,
+      "tools": {
+        "Read": 22,
+        "Bash": 16,
+        "Edit": 7,
+        "Write": 7,
+        "Agent": 3,
+        "TaskOutput": 2,
+        "ToolSearch": 1
+      },
+      "skills_used": {},
+      "agents_used": {
+        "Explore": 3
+      },
+      "project": "-Users-freddie"
+    },
+    {
+      "session_id": "5566d5a5-441c-4e8a-bce0-874eee7dfe61",
+      "started_at": "2026-03-19T10:53:56.084000+09:00",
+      "ended_at": "2026-03-19T12:35:25.599000+09:00",
+      "duration_min": 101,
+      "cwd": "~",
+      "user_messages": 161,
+      "assistant_messages": 187,
+      "total_tool_calls": 138,
+      "tools": {
+        "TaskUpdate": 31,
+        "Bash": 23,
+        "Edit": 21,
+        "Read": 16,
+        "Agent": 14,
+        "TaskCreate": 11,
+        "Write": 10,
+        "ToolSearch": 3,
+        "TaskOutput": 3,
+        "Glob": 2,
+        "Grep": 2,
+        "TaskList": 2
+      },
+      "skills_used": {},
+      "agents_used": {
+        "Explore": 1,
+        "backend-development:backend-architect": 10,
+        "backend-api-security:backend-security-coder": 1,
+        "developer-essentials:code-review-excellence": 1,
+        "javascript-typescript:typescript-pro": 1
+      },
+      "project": "-Users-freddie"
+    }
+  ]
+}
