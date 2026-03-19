@@ -3,6 +3,7 @@ GitHub 활동 수집기
 Ark-Point org의 모든 repo에서 최근 N시간 커밋 분석
 GraphQL API 사용 (REST API 접근 제한 대응)
 """
+from __future__ import annotations
 import json
 import subprocess
 from datetime import datetime, timedelta, timezone

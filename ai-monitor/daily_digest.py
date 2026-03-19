@@ -7,6 +7,7 @@ AI Native 워크플로우 일일 다이제스트
   python daily_digest.py --dry-run # 실행만 (발송 안 함)
   python daily_digest.py --hours 48 # 최근 48시간 분석
 """
+from __future__ import annotations
 import os
 import json
 import argparse
@@ -183,6 +184,7 @@ def _get_display_name(username: str) -> str:
     os_to_display = {
         "hs": "HS",
         "ann": "Ann",
+        "kyongeunlee": "Ann",
         "teo": "TEO",
         "freddie": "Freddie",
         "hook": "Hook",

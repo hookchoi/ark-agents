@@ -7,6 +7,7 @@ Claude Code 세션 메타데이터 수집기
   python session_collector.py --hours 72   # 최근 72시간
   python session_collector.py --dry-run    # push 없이 출력만
 """
+from __future__ import annotations
 import json
 import os
 import glob

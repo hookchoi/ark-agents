@@ -1,6 +1,7 @@
 """
 Slack #91-ai-lab 활동 분석기
 """
+from __future__ import annotations
 import os
 import re
 from datetime import datetime, timedelta, timezone

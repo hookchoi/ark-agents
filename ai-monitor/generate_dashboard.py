@@ -2,6 +2,7 @@
 AI Native 워크플로우 대시보드 생성기
 history/*.json + team-data/ → dashboard.html
 """
+from __future__ import annotations
 import json
 import os
 from datetime import date, datetime

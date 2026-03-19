@@ -6,14 +6,13 @@ AI Native 워크플로우 주간 리포트
   python weekly_report.py           # Slack 발송
   python weekly_report.py --dry-run # 출력만
 """
+from __future__ import annotations
 import json
 import os
 import argparse
 from datetime import date, timedelta, datetime
 from pathlib import Path
 from dotenv import load_dotenv
-import anthropic
-
 load_dotenv(Path(__file__).parent.parent / "telegram" / ".env")
 
 from config import TEAM_MEMBERS, KST
@@ -147,65 +146,8 @@ def generate_rule_based_recommendations(this_week: dict, last_week: dict) -> lis
 
 
 def generate_ai_recommendations(this_week: dict, last_week: dict, daily_data: list[dict]) -> list[str]:
-    """Claude API로 개선 추천 생성 (API 키 없으면 룰 기반 fallback)"""
-    api_key = os.environ.get("ANTHROPIC_API_KEY", "")
-    if not api_key:
-        return generate_rule_based_recommendations(this_week, last_week)
-
-    context = f"""ARK Point AI Native 워크플로우 주간 데이터:
-
-이번 주:
-- 세션: {this_week['total_sessions']}회, 대화: {this_week['total_messages']}회, 도구 호출: {this_week['total_tool_calls']}회
-- AI 사용 시간: {this_week['total_duration_min']}분
-- GitHub 커밋: {this_week['total_commits']}개 (AI 기여: {this_week['total_ai_commits']}개)
-- Slack #ai-lab 메시지: {this_week['total_slack_messages']}개
-- 모니터링 대상: {len(TEAM_MEMBERS)}명, 데이터 수집: {len(this_week['by_member'])}명
-
-구성원별:
-"""
-    for member, stats in this_week["by_member"].items():
-        context += f"- {member}: {stats['sessions']}세션, {stats['messages']}대화, {stats['tool_calls']}도구, {stats['duration_min']}분\n"
-
-    if last_week["total_sessions"] > 0:
-        context += f"""
-지난 주 대비:
-- 세션: {calc_change(this_week['total_sessions'], last_week['total_sessions'])}
-- 도구 호출: {calc_change(this_week['total_tool_calls'], last_week['total_tool_calls'])}
-"""
-
-    context += """
-회사 정보:
-- ARK Point: 12명 규모, AI-native Business Builder
-- 현재 AI Native 전환 중 (Gartner Level 2~3 수준)
-- 비개발 직군(마케팅, BD, 운영)도 AI 활용 필요
-- Faros AI 연구: 개인 AI 사용량 증가가 조직 생산성으로 이어지려면 워크플로우 전체 재설계 필요
-"""
-
-    client = anthropic.Anthropic(api_key=api_key)
-    response = client.messages.create(
-        model="claude-sonnet-4-6",
-        max_tokens=500,
-        system="당신은 AI Native 조직 컨설턴트입니다. 데이터 기반으로 구체적이고 실행 가능한 개선 추천을 3개 제시하세요. 일반론 금지. 각 추천은 한 줄로, 근거 데이터를 포함하세요.",
-        messages=[{
-            "role": "user",
-            "content": f"{context}\n\n이 데이터를 바탕으로 이번 주 AI Native 워크플로우 개선을 위한 추천 3개를 제시해주세요."
-        }]
-    )
-    text = response.content[0].text
-
-    # 줄 단위로 파싱
-    recommendations = []
-    for line in text.strip().split("\n"):
-        line = line.strip()
-        if line and len(line) > 5:
-            # 번호 제거
-            if line[0].isdigit() and line[1] in ".)" :
-                line = line[2:].strip()
-            if line.startswith("- "):
-                line = line[2:]
-            recommendations.append(line)
-
-    return recommendations[:5]
+    """룰 기반 개선 추천 사용. Claude Code 세션에서 AI 추천이 필요하면 weekly_ai_review.md 참조."""
+    return generate_rule_based_recommendations(this_week, last_week)
 
 
 def generate_weekly_report(this_agg: dict, last_agg: dict, recommendations: list[str]) -> str:

@@ -1,0 +1,16 @@
+{
+  "date": "2026-03-14",
+  "generated_at": "2026-03-19T11:02:03.822041+09:00",
+  "timezone": "KST (UTC+9)",
+  "claude_sessions": {},
+  "github": {
+    "total_commits": 0,
+    "ai_commits": 0,
+    "active_members": 0
+  },
+  "slack": {
+    "total_messages": 0,
+    "ai_mentions": 0,
+    "active_users": 0
+  }
+}
