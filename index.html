@@ -223,8 +223,12 @@ function getFilteredData() {
     const members = currentMemberFilter === 'all' ? Object.keys(MEMBERS_DAILY) : [currentMemberFilter];
     const dates = getPeriodDates();
     let totals = { sessions:0, messages:0, tool_calls:0, duration_min:0 };
+    const ADVANCED_TOOLS = ['agent','skill','mcp','enterplanmode','exitplanmode'];
+    let advancedCalls = 0;
+    let activeMemberSet = new Set();
     members.forEach(m => {
         const md = MEMBERS_DAILY[m] || {};
+        let hasActivity = false;
         dates.forEach(d => {
             const s = md[d];
             if (s) {
@@ -232,30 +236,41 @@ function getFilteredData() {
                 totals.messages += s.messages;
                 totals.tool_calls += s.tool_calls;
                 totals.duration_min += s.duration_min;
+                hasActivity = true;
+                Object.entries(s.top_tools || {}).forEach(([t,c]) => {
+                    if (ADVANCED_TOOLS.some(a => t.toLowerCase().includes(a)) || t.toLowerCase().startsWith('mcp_')) advancedCalls += c;
+                });
+                Object.values(s.skills_used || {}).forEach(c => { advancedCalls += c; });
             }
         });
+        if (hasActivity) activeMemberSet.add(m);
     });
-    return { members, dates, totals };
+    const totalMembers = Object.keys(TEAM_MEMBERS).length;
+    const activeRate = totalMembers ? Math.round(activeMemberSet.size / totalMembers * 100) : 0;
+    const depthRate = totals.tool_calls ? Math.round(advancedCalls / totals.tool_calls * 100) : 0;
+    return { members, dates, totals, activeRate, depthRate, activeCount: activeMemberSet.size, totalMembers };
 }
 
 function updateDashboard() {
-    const { members, dates, totals } = getFilteredData();
-    renderKPIs(totals, members);
+    const { members, dates, totals, activeRate, depthRate, activeCount, totalMembers } = getFilteredData();
+    renderKPIs(totals, members, activeRate, depthRate, activeCount, totalMembers);
     renderMemberCards(members, dates);
     renderMemberTrendChart(members, dates);
     renderDailyCompareChart(members, dates);
     renderMissing(members);
 }
 
-function renderKPIs(totals, members) {
+function renderKPIs(totals, members, activeRate, depthRate, activeCount, totalMembers) {
     const grid = document.getElementById('kpiGrid');
+    const rateColor = activeRate >= 80 ? 'var(--green)' : activeRate >= 50 ? 'var(--yellow)' : 'var(--red, #ef4444)';
+    const depthColor = depthRate >= 30 ? 'var(--green)' : depthRate >= 10 ? 'var(--yellow)' : 'var(--red, #ef4444)';
     grid.innerHTML = `
+        <div class="kpi-card"><div class="kpi-value" style="color:${rateColor}">${activeRate}%</div><div class="kpi-label">팀 활성률 (${activeCount}/${totalMembers})</div></div>
+        <div class="kpi-card"><div class="kpi-value" style="color:${depthColor}">${depthRate}%</div><div class="kpi-label">AI 기능 깊이 (고급/전체)</div></div>
         <div class="kpi-card"><div class="kpi-value">${fmt(totals.sessions)}</div><div class="kpi-label">Claude 세션</div></div>
         <div class="kpi-card"><div class="kpi-value">${fmt(totals.messages)}</div><div class="kpi-label">AI 대화</div></div>
         <div class="kpi-card"><div class="kpi-value">${fmt(totals.tool_calls)}</div><div class="kpi-label">도구 호출</div></div>
         <div class="kpi-card"><div class="kpi-value">${fmtH(totals.duration_min)}</div><div class="kpi-label">AI 사용 시간</div></div>
-        <div class="kpi-card"><div class="kpi-value">${members.length}</div><div class="kpi-label">참여 구성원</div></div>
-        <div class="kpi-card"><div class="kpi-value">${Object.keys(TEAM_MEMBERS).length}</div><div class="kpi-label">전체 구성원</div></div>
     `;
 }
 
