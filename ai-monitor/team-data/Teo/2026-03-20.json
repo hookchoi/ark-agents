@@ -1,0 +1,140 @@
+{
+  "collector_version": "1.0",
+  "collected_at": "2026-03-20T00:30:03.458347+00:00",
+  "username": "Teo",
+  "period_hours": 24,
+  "summary": {
+    "total_sessions": 6,
+    "total_user_messages": 234,
+    "total_tool_calls": 182,
+    "total_duration_min": 2966,
+    "avg_session_min": 494,
+    "top_tools": {
+      "Bash": 106,
+      "Read": 22,
+      "WebFetch": 16,
+      "TodoWrite": 10,
+      "Edit": 9,
+      "Write": 9,
+      "WebSearch": 8,
+      "Glob": 1,
+      "AskUserQuestion": 1
+    },
+    "skills_used": {}
+  },
+  "sessions": [
+    {
+      "session_id": "901dfb86-ee4d-45cd-815a-59e16e00a909",
+      "started_at": "2026-03-20T08:11:14.545000+09:00",
+      "ended_at": "2026-03-20T09:29:31.644000+09:00",
+      "duration_min": 78,
+      "cwd": "~",
+      "user_messages": 42,
+      "assistant_messages": 61,
+      "total_tool_calls": 34,
+      "tools": {
+        "Bash": 32,
+        "Read": 1,
+        "Edit": 1
+      },
+      "skills_used": {},
+      "agents_used": {},
+      "project": "C--Users-Teo"
+    },
+    {
+      "session_id": "39a6355b-e1c1-4828-8b55-c90865cd9341",
+      "started_at": "2026-03-19T16:37:55.279000+09:00",
+      "ended_at": "2026-03-20T09:15:37.664000+09:00",
+      "duration_min": 998,
+      "cwd": "~",
+      "user_messages": 31,
+      "assistant_messages": 48,
+      "total_tool_calls": 22,
+      "tools": {
+        "Write": 7,
+        "Read": 6,
+        "TodoWrite": 5,
+        "Bash": 4
+      },
+      "skills_used": {},
+      "agents_used": {},
+      "project": "C--Users-Teo"
+    },
+    {
+      "session_id": "c3f494ed-24c1-4e5a-be4e-f736de856bc6",
+      "started_at": "2026-03-18T20:12:40.572000+09:00",
+      "ended_at": "2026-03-19T16:28:34.890000+09:00",
+      "duration_min": 1216,
+      "cwd": "~",
+      "user_messages": 83,
+      "assistant_messages": 135,
+      "total_tool_calls": 63,
+      "tools": {
+        "Bash": 38,
+        "Read": 10,
+        "Edit": 8,
+        "TodoWrite": 5,
+        "WebSearch": 1,
+        "Write": 1
+      },
+      "skills_used": {},
+      "agents_used": {},
+      "project": "C--Users-Teo"
+    },
+    {
+      "session_id": "10f2841e-fa89-4da8-bab1-84392aef5c69",
+      "started_at": "2026-03-19T15:54:11.105000+09:00",
+      "ended_at": "2026-03-19T16:05:22.408000+09:00",
+      "duration_min": 11,
+      "cwd": "~",
+      "user_messages": 16,
+      "assistant_messages": 30,
+      "total_tool_calls": 12,
+      "tools": {
+        "Bash": 10,
+        "Read": 2
+      },
+      "skills_used": {},
+      "agents_used": {},
+      "project": "C--Users-Teo"
+    },
+    {
+      "session_id": "dbff6187-447d-40db-8bd0-ba9233abac52",
+      "started_at": "2026-03-19T10:58:37.619000+09:00",
+      "ended_at": "2026-03-19T15:43:52.487000+09:00",
+      "duration_min": 285,
+      "cwd": "~",
+      "user_messages": 28,
+      "assistant_messages": 55,
+      "total_tool_calls": 22,
+      "tools": {
+        "Bash": 17,
+        "Read": 3,
+        "Glob": 1,
+        "AskUserQuestion": 1
+      },
+      "skills_used": {},
+      "agents_used": {},
+      "project": "C--Users-Teo"
+    },
+    {
+      "session_id": "9fc50dec-a724-427e-9bcc-bdc5b349d94a",
+      "started_at": "2026-03-19T08:19:09.663000+09:00",
+      "ended_at": "2026-03-19T14:36:41.130000+09:00",
+      "duration_min": 378,
+      "cwd": "~",
+      "user_messages": 34,
+      "assistant_messages": 47,
+      "total_tool_calls": 29,
+      "tools": {
+        "WebFetch": 16,
+        "WebSearch": 7,
+        "Bash": 5,
+        "Write": 1
+      },
+      "skills_used": {},
+      "agents_used": {},
+      "project": "C--Users-Teo"
+    }
+  ]
+}
