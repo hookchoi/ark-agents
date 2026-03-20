@@ -1,0 +1,87 @@
+{
+  "collector_version": "1.0",
+  "collected_at": "2026-03-20T01:14:48.235827+00:00",
+  "username": "hookchoi",
+  "period_hours": 24,
+  "summary": {
+    "total_sessions": 4,
+    "total_user_messages": 33,
+    "total_tool_calls": 21,
+    "total_duration_min": 5,
+    "avg_session_min": 1,
+    "top_tools": {
+      "Bash": 15,
+      "Read": 3,
+      "Agent": 1,
+      "Grep": 1,
+      "Edit": 1
+    },
+    "skills_used": {}
+  },
+  "sessions": [
+    {
+      "session_id": "2782315a-bdc6-4fb2-aeb8-db09a1b3ffea",
+      "started_at": "2026-03-19T14:41:34.862000+09:00",
+      "ended_at": "2026-03-19T14:41:37.867000+09:00",
+      "duration_min": 0,
+      "cwd": "~",
+      "user_messages": 3,
+      "assistant_messages": 0,
+      "total_tool_calls": 0,
+      "tools": {},
+      "skills_used": {},
+      "agents_used": {},
+      "project": "-data-hookchoi"
+    },
+    {
+      "session_id": "6082abb9-d45f-4ebd-b637-0027c4f04794",
+      "started_at": "2026-03-19T14:26:50.698000+09:00",
+      "ended_at": "2026-03-19T14:26:54.344000+09:00",
+      "duration_min": 0,
+      "cwd": "~",
+      "user_messages": 3,
+      "assistant_messages": 0,
+      "total_tool_calls": 0,
+      "tools": {},
+      "skills_used": {},
+      "agents_used": {},
+      "project": "-data-hookchoi"
+    },
+    {
+      "session_id": "ca253311-3304-4073-b9fa-e009d365842b",
+      "started_at": "2026-03-19T13:34:55.720000+09:00",
+      "ended_at": "2026-03-19T13:34:55.720000+09:00",
+      "duration_min": 0,
+      "cwd": "~",
+      "user_messages": 3,
+      "assistant_messages": 0,
+      "total_tool_calls": 0,
+      "tools": {},
+      "skills_used": {},
+      "agents_used": {},
+      "project": "-data-hookchoi"
+    },
+    {
+      "session_id": "2b385cf2-e9bf-49f8-bda3-87db025a3b48",
+      "started_at": "2026-03-19T14:27:49.482000+09:00",
+      "ended_at": "2026-03-19T14:32:33.456000+09:00",
+      "duration_min": 5,
+      "cwd": "~/projects/01-hook/20260316-srt-fairy",
+      "user_messages": 24,
+      "assistant_messages": 35,
+      "total_tool_calls": 21,
+      "tools": {
+        "Bash": 15,
+        "Read": 3,
+        "Agent": 1,
+        "Grep": 1,
+        "Edit": 1
+      },
+      "skills_used": {},
+      "agents_used": {
+        "Explore": 1
+      },
+      "project": "-data-hookchoi-projects-01-hook-20260316-srt-fairy"
+    }
+  ]
+}
